@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+        .dafault{
+            width: 140px;
+            border: 1px solid #eee;
+            padding:10px;
+            box-sizing:border-box;
+            position: relative;
+        }
+        .edit{
+            position: absolute;
+            right:5px;
+            top:5px;
+            width: 22px;
+            height: 22px;
+            background:url(/images/bianji.svg);
+            background-size:cover;
+            cursor: pointer;
+            display:none;
+        }
+        .dafault:hover .edit{
+            display:block;
+        }
+         .dafault img{
+            width: 100%
+        }
+    </style>
+</head>
+<body>
+    <form action="/api/up" method="POST" encType="multipart/form-data" id="form">
+        <input type="file" name="adminavatar" hidden id="adminavatar"/>
+        <input type="submit" name="上传" hidden/>
+    </form>
+    <div class="dafault">
+        <span class="edit"></span>
+        <img src="/api/getAvatar" alt="" />
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js-lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    //点击编辑按钮 等价于点击file控件
+    $(".edit").click(function(){
+        //trigger的意思是让电脑帮我们出发什么事件类型。
+        $("#adminavatar").trigger("click");
+    })
+    // 当file控制变化的时候，此时模拟表单提交的按钮
+    $("#adminavatar").bind("change",function(){
+        // JQ对象转变成JS原生的对象
+        $("#form")[0].submit();
+        window.parent.openXuanfu();
+
+    })
+</script>
